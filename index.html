@@ -46,6 +46,7 @@
 
                 if(obj.x<-obj.radius){
                     obj.x = c.width + obj.radius
+                    obj.y = Math.random() * (c.height-obj.radius)
                 }
 
                 ctx.beginPath()
