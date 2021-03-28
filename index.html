@@ -18,24 +18,55 @@
 
             let x = c.width/2
             let y = c.height/2
+            let fx = 10
+            let fy = 10
             let r = 30
+            let fr = 100
+
+            let gameObjs = [];
+            gameObjs.push( {x: x, y: y, radius: r, color: "red" } )
+            gameObjs.push( {x: x-50, y: y+50, radius: r-10, color: "green" } )
+            //gameObjs.push( {x: fx, y: fy} )
 
             ctx.fillStyle = "red"
 
             const draw = () => {
                 ctx.clearRect(0, 0, c.width, c.height);
 
-                x -= 1;
+                // x -= 1;
 
-                if(x<-r){
-                    x = c.width + r
+                // if(x<-r){
+                //     x = c.width + r
+                // }
+
+                ctx.drawImage(fball,fx,fy)
+
+                gameObjs.forEach( (obj) => {
+                obj.x -= 1;
+
+                if(obj.x<-obj.radius){
+                    obj.x = c.width + obj.radius
                 }
 
-                //ctx.beginPath();
-                //ctx.arc( x, y, r, 0, Math.PI*2)
-                ctx.drawImage(fball,x,y)
-                //ctx.closePath();
-               // ctx.fill()
+                ctx.beginPath()
+                ctx.arc(obj.x, obj.y, obj.radius, 0, Math.PI*2);
+                ctx.closePath();
+                ctx.fillStyle = obj.color;
+                ctx.fill();
+                });
+
+
+                // ctx.beginPath();
+                // ctx.arc( x, y, r, 0, Math.PI*2)
+                // ctx.fillStyle = "red"
+                // ctx.fill()
+                // ctx.closePath();
+
+                // ctx.beginPath();
+                // ctx.fillStyle = "green"
+                // ctx.arc( x-50, y+50, r-10, 0, Math.PI*2)
+                // ctx.fill()
+                // ctx.closePath();
                 window.requestAnimationFrame(draw);
             }
 
@@ -45,20 +76,29 @@
 
                 switch (event.keyCode){
                     case 38:
-                        y-= 10
+                        fy-= 10
                         break;
                     case 40:
-                        y+= 10
+                        fy+= 10
                         break;
                     default:
                         console.log("This feature would soon be updated")
                 }  
-                // if(event.keyCode == 38){
-                    
-                // } else if(event.keyCode == 40){
-                //     y+= 10
-                // }
             })
+
+            // function areColliding (circ1, circ2) {
+            // //console.log("hello world")
+
+            // const dx = circ1.x - circ2.x;
+            // const dy = circ1.y - circ2.y;
+            // const distance = Math.sqrt(dx * dx + dy * dy);
+
+            // if (distance < circ1.radius + circ2.radius) {
+            // // collision detected!
+            // return true
+            // }
+            // return false
+            // }
         </script>
     </body>
 </html>
