@@ -18,6 +18,9 @@
             let fball = new Image()
             fball.src = "images/fball1.png"
 
+            let points = 0
+            let lives = 10
+
             let x = c.width/2
             let y = c.height/2
             let fx = 10
@@ -28,21 +31,20 @@
             let gameObjs = [];
             gameObjs.push( {x: x, y: y, radius: r, color: "red" } )
             gameObjs.push( {x: x-50, y: y+50, radius: r-10, color: "orange" } )
-            //gameObjs.push( {x: fx, y: fy} )
-
-            ctx.fillStyle = "red"
 
             const draw = () => {
                 ctx.clearRect(0, 0, c.width, c.height);
 
-                // x -= 1;
-
-                // if(x<-r){
-                //     x = c.width + r
-                // }
                 ctx.drawImage(bg,0,0)
 
-                ctx.drawImage(fball,fx,fy)
+                //ctx.drawImage(fball,fx,fy)
+
+                ctx.beginPath();
+                ctx.arc( 20, fy, r-5, 0, Math.PI*2)
+                ctx.fillStyle = "white"
+                ctx.fill()
+                ctx.closePath();
+
 
                 gameObjs.forEach( (obj) => {
                 obj.x -= 1;
@@ -60,6 +62,23 @@
                 });
 
 
+                if(areColliding(gameObjs[0])){
+                lives-= 0.05;
+                console.log(lives)
+                } else if(areColliding(gameObjs[1])){
+                points += 2;
+                console.log(points)
+                }
+
+                let str1 = "Lives : " + (lives.toString()).substring(0,2)
+                let str2 = "Points : " + points.toString()
+
+                ctx.font = "30px Arial";
+                ctx.fillStyle = "yellow";
+                ctx.fillText(str1, 10, 45);
+                ctx.fillText(str2, 10, 65);
+
+
                 // ctx.beginPath();
                 // ctx.arc( x, y, r, 0, Math.PI*2)
                 // ctx.fillStyle = "red"
@@ -74,7 +93,24 @@
                 window.requestAnimationFrame(draw);
             }
 
+             function areColliding (circ1) {
+            //console.log("hello world")
+
+            const dx = circ1.x - fx;
+            const dy = circ1.y - fy;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < circ1.radius + (r-5)) {
+            // collision detected!
+            return true
+            console.log("collided!")
+            }
+            return false
+            console.log("not collided!")
+            }
+
             draw();
+
 
             document.addEventListener("keydown",(event) =>{
 
@@ -90,19 +126,7 @@
                 }  
             })
 
-            // function areColliding (circ1, circ2) {
-            // //console.log("hello world")
 
-            // const dx = circ1.x - circ2.x;
-            // const dy = circ1.y - circ2.y;
-            // const distance = Math.sqrt(dx * dx + dy * dy);
-
-            // if (distance < circ1.radius + circ2.radius) {
-            // // collision detected!
-            // return true
-            // }
-            // return false
-            // }
         </script>
     </body>
 </html>
