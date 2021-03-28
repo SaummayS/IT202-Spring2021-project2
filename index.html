@@ -75,22 +75,17 @@
 
                 ctx.font = "30px Arial";
                 ctx.fillStyle = "yellow";
+                if(lives < 2){
+                    ctx.fillStyle = "red";
+                }
                 ctx.fillText(str1, 10, 45);
                 ctx.fillText(str2, 10, 65);
-
-
-                // ctx.beginPath();
-                // ctx.arc( x, y, r, 0, Math.PI*2)
-                // ctx.fillStyle = "red"
-                // ctx.fill()
-                // ctx.closePath();
-
-                // ctx.beginPath();
-                // ctx.fillStyle = "green"
-                // ctx.arc( x-50, y+50, r-10, 0, Math.PI*2)
-                // ctx.fill()
-                // ctx.closePath();
-                window.requestAnimationFrame(draw);
+                
+                if(lives > 1){
+                window.requestAnimationFrame(draw);}
+                else {
+                    ctx.fillText("Game Over !", 200, 200);
+                }
             }
 
              function areColliding (circ1) {
