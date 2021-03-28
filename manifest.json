@@ -8,7 +8,7 @@
     "app_name": "Scrolling Game",
     "short_name": "Game",
     "description": "Scroll and Play",
-    "icon": [
+    "icons": [
         {
             "src": "/images/fball1.png",
             "sizes": "192x192",
